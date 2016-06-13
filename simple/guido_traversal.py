@@ -28,7 +28,11 @@ def iterative_bfs(graph, start, path=[]):
     v=q.pop(0)
     if not v in path:
       path=path+[v]
+      print 'bfs: path extension', path
       q=q+graph[v]
+    else:
+      print 'bfs skipping', v
+    print 'bfs queue', q
   return path
 
 '''
