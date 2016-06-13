@@ -1,4 +1,45 @@
+import sys
 from collections import deque # Doubly-ended queue: pop from left, append to right.
+
+def simple_bfs(start,goal,neighbors):
+    stack=[(start,)]
+    extensions=1
+    while stack:
+        path=stack.pop()
+        s=path[-1]
+        print('PATH',path)
+        print('SSSS',s)
+        if s==goal:
+            print('extensions',extensions)
+            return path
+        else:
+            for s2 in neighbors[s]:
+                print('SSS2',s2)
+                path2 = path + (s2,)
+                print ('PATH2', path2)
+                extensions+=1
+# add to end of queue for BFS
+                stack = stack + [path2]
+                print('STACK',stack)
+
+def simple_dfs(start,goal,neighbors):
+    stack=[(start,)]
+    extensions=1
+    while stack:
+        path=stack.pop()
+        s=path[-1]
+        print('PATH',path)
+        print('SSSS',s)
+        if s==goal:
+            print('extensions',extensions)
+            return path
+        else:
+            for s2 in neighbors[s]:
+                print('SSS2',s2)
+                path2 = path + (s2,)
+                print ('PATH2', path2)
+                extensions+=1
+                stack = [path2] + stack
 
 def breadth_first(start, goal, neighbors):
     "Find a shortest sequence of states from start to the goal."
@@ -57,7 +98,10 @@ romania = {
  'Z': ['A','O']}
 
 print ('breadth_first',breadth_first('A', 'B', romania))  #  A,S,F,B
+# print ('simple_bfs',simple_bfs('A', 'B', romania)) 
+# sys.exit(1)
 print ('depth_first',depth_first('A', 'B', romania)) 
+print ('simple_dfs',simple_dfs('A', 'B', romania)) 
 """
 #(A)
 (A,S),(A,T),(A,Z)
@@ -73,7 +117,7 @@ print ('>>>>>>>>>>>>>>>depth_first A to Z: ')
 print ('>>>>>>>>>>>>>>>END depth_first A to Z: ',depth_first('A', 'Z', romania)) 
 print ('>>>>>>>>>>>>>>>depth_first A to ZZ: ')
 print ('>>>>>>>>>>>>>>>END depth_first A to ZZ: ',depth_first('A', 'ZZ', romania)) 
-mit_patrick_winston = {
+OLD_mit_patrick_winston = {
     'S': ['AA','B'],
     'AA': ['B','D','S'],
     'B': ['AA','C','S'],
@@ -82,30 +126,29 @@ mit_patrick_winston = {
     'E': ['C'],
     'G': ['D'],
 }
+
+mit_patrick_winston = {
+    'S': ['AA','B'],
+    'AA': ['B','D'],
+    'B': ['C'],
+    'C': ['E'],
+    'D': ['G'],
+    'E':[],
+    #'
+    #'E': ['C'],
+    #'G': ['D'],
+}
 # S,A,D,G
 print ('depth_first',depth_first('S', 'G', mit_patrick_winston)) 
 # S,A,B,C,E,D,G
 
 
-def simple_dfs(start,goal,neighbors):
-    stack=[(start,)]
-    extensions=1
-    while stack:
-        path=stack.pop()
-        s=path[-1]
-        print('PATH',path)
-        print('SSSS',s)
-        if s==goal:
-            print('extensions',extensions)
-            return path
-        else:
-            for s2 in neighbors[s]:
-                print('SSS2',s2)
-                path2 = path + (s2,)
-                print ('PATH2', path2)
-                extensions+=1
-                stack = [path2] + stack
             
 
 
 print ('simple_dfs',simple_dfs('S', 'G', mit_patrick_winston)) 
+
+print ('breadth_first',breadth_first('S', 'G', mit_patrick_winston)) 
+
+
+print ('simple_bfs',simple_bfs('S', 'G', mit_patrick_winston)) 
