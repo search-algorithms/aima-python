@@ -11,9 +11,14 @@ def iterative_dfs(graph, start, path=[]):
   q=[start]
   while q:
     v=q.pop(0)
+    print 'dfs: popping', v
     if v not in path:
       path=path+[v]
+      print 'dfs: path extension', path
       q=graph[v]+q
+    else:
+      print 'dfs skipping', v
+    print 'dfs queue', q
   return path
 
 def iterative_bfs(graph, start, path=[]):
