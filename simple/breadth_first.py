@@ -74,14 +74,38 @@ print ('>>>>>>>>>>>>>>>END depth_first A to Z: ',depth_first('A', 'Z', romania))
 print ('>>>>>>>>>>>>>>>depth_first A to ZZ: ')
 print ('>>>>>>>>>>>>>>>END depth_first A to ZZ: ',depth_first('A', 'ZZ', romania)) 
 mit_patrick_winston = {
-    'S': ['A','B'],
-    'A': ['B','D','S'],
-    'B': ['A','C','S'],
-    'C': ['A','E'],
-    'D': ['A','G'],
+    'S': ['AA','B'],
+    'AA': ['B','D','S'],
+    'B': ['AA','C','S'],
+    'C': ['AA','E'],
+    'D': ['AA','G'],
     'E': ['C'],
     'G': ['D'],
 }
 # S,A,D,G
 print ('depth_first',depth_first('S', 'G', mit_patrick_winston)) 
 # S,A,B,C,E,D,G
+
+
+def simple_dfs(start,goal,neighbors):
+    stack=[(start,)]
+    extensions=1
+    while stack:
+        path=stack.pop()
+        s=path[-1]
+        print('PATH',path)
+        print('SSSS',s)
+        if s==goal:
+            print('extensions',extensions)
+            return path
+        else:
+            for s2 in neighbors[s]:
+                print('SSS2',s2)
+                path2 = path + (s2,)
+                print ('PATH2', path2)
+                extensions+=1
+                stack = [path2] + stack
+            
+
+
+print ('simple_dfs',simple_dfs('S', 'G', mit_patrick_winston)) 
